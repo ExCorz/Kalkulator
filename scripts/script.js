@@ -1,0 +1,71 @@
+let display = document.getElementById("display");
+let angka1 = "";
+let angka2 = "";
+let operasi = "";
+let sedangInputAngka2 = false;
+
+function tambahAngka(angka) {
+  if (!sedangInputAngka2) {
+    angka1 += angka;
+    display.value = angka1;
+  } else {
+    angka2 += angka;
+    display.value = angka1 + " " + operasi + " " + angka2;
+  }
+}
+
+function setOperasi(op) {
+  if (angka1 === "") return;
+  operasi = op;
+  sedangInputAngka2 = true;
+  display.value = angka1 + " " + operasi;
+}
+
+function hitung() {
+  if (angka1 === "" || angka2 === "") return;
+
+  let a = parseFloat(angka1);
+  let b = parseFloat(angka2);
+  let hasil = 0;
+
+  switch (operasi) {
+    case '+': hasil = a + b; break;
+    case '-': hasil = a - b; break;
+    case '*': hasil = a * b; break;
+    case '/': hasil = a / b; break;
+  }
+
+  display.value = hasil;
+  angka1 = hasil.toString();
+  angka2 = "";
+  operasi = "";
+  sedangInputAngka2 = false;
+}
+
+function hapusTotal() {
+  angka1 = "";
+  angka2 = "";
+  operasi = "";
+  sedangInputAngka2 = false;
+  display.value = "";
+}
+
+function hapusSatu() {
+  if (!sedangInputAngka2) {
+    angka1 = angka1.slice(0, -1);
+    display.value = angka1;
+  } else {
+    angka2 = angka2.slice(0, -1);
+    display.value = angka1 + " " + operasi + " " + angka2;
+  }
+}
+
+function persen() {
+  if (!sedangInputAngka2) {
+    angka1 = (parseFloat(angka1) / 100).toString();
+    display.value = angka1;
+  } else {
+    angka2 = (parseFloat(angka2) / 100).toString();
+    display.value = angka1 + " " + operasi + " " + angka2;
+  }
+}
